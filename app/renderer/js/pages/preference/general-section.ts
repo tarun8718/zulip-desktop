@@ -32,7 +32,7 @@ export default class GeneralSection extends BaseSection {
             <div class="settings-pane">
                 <div class="title">${t.__('Appearance')}</div>
                 <div id="appearance-option-settings" class="settings-card">
-					<div class="setting-row" id="tray-option">
+					<div class="setting-row" id="tray-option" style="display:${process.platform === 'linux' ? 'none' : ''}">
 						<div class="setting-description">${t.__('Show app icon in system tray')}</div>
 						<div class="setting-control"></div>
 					</div>
@@ -519,7 +519,7 @@ export default class GeneralSection extends BaseSection {
 			const spellDiv: HTMLElement = document.querySelector('#spellcheck-langs');
 			spellDiv.innerHTML += htmlEscape`
 				<div class="setting-description">${t.__('Spellchecker Languages')}</div>
-				<input name='spellcheck' placeholder='Enter Languages'>`;
+				<input class="spellcheckInput" name='spellcheck' placeholder='Enter Languages'>`;
 
 			const availableLanguages = session.fromPartition('persist:webviewsession').availableSpellCheckerLanguages;
 			let languagePairs: Map<string, string> = new Map();
