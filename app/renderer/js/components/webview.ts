@@ -73,7 +73,9 @@ export default class WebView extends BaseComponent {
 	init(): void {
 		this.$el = this.generateNodeFromHTML(this.templateHTML()) as Electron.WebviewTag;
 		this.domReady = new Promise(resolve => {
-			this.$el.addEventListener('dom-ready', () => resolve(), true);
+			this.$el.addEventListener('dom-ready', () => {
+				resolve();
+			}, true);
 		});
 		this.props.$root.append(this.$el);
 
@@ -147,8 +149,8 @@ export default class WebView extends BaseComponent {
 
 		this.$el.addEventListener('did-fail-load', event => {
 			const {errorDescription} = event;
-			const hasConnectivityErr = SystemUtil.connectivityERR.includes(errorDescription);
-			if (hasConnectivityErr) {
+			const hasConnectivityError = SystemUtil.connectivityERR.includes(errorDescription);
+			if (hasConnectivityError) {
 				console.error('error', errorDescription);
 				if (!this.props.url.includes('network.html')) {
 					this.props.onNetworkError(this.props.index);

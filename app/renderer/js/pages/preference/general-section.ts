@@ -495,7 +495,9 @@ export default class GeneralSection extends BaseSection {
 		});
 		if (response === 0) {
 			await fs.promises.rmdir(getAppPath, {recursive: true});
-			setTimeout(() => ipcRenderer.send('clear-app-settings'), 1000);
+			setTimeout(() => {
+				ipcRenderer.send('clear-app-settings');
+			}, 1000);
 		}
 	}
 
@@ -551,7 +553,7 @@ export default class GeneralSection extends BaseSection {
 				maxTags: 3,
 				dropdown: {
 					enabled: 0,
-					maxItems: Infinity,
+					maxItems: Number.POSITIVE_INFINITY,
 					closeOnSelect: false,
 					highlightFirst: true
 				}

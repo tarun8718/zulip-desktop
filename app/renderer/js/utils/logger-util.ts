@@ -116,7 +116,9 @@ export default class Logger {
 	}
 
 	setupConsoleMethod(type: Level): void {
-		this[type] = (...args: unknown[]) => this._log(type, ...args);
+		this[type] = (...args: unknown[]) => {
+			this._log(type, ...args);
+		};
 	}
 
 	getTimestamp(): string {
@@ -127,9 +129,9 @@ export default class Logger {
 		return timestamp;
 	}
 
-	reportSentry(err: unknown): void {
+	reportSentry(error: unknown): void {
 		if (reportErrors) {
-			captureException(err);
+			captureException(error);
 		}
 	}
 
