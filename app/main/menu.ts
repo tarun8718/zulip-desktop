@@ -344,6 +344,21 @@ function getDarwinTpl(props: MenuProps): Electron.MenuItemConstructorOptions[] {
 			accelerator: 'Cmd+,',
 			click(_item, focusedWindow) {
 				if (focusedWindow) {
+					let numberServers = 0;
+					tabs.forEach(tab => {
+						if (tab.role === 'server') {
+							numberServers++;
+						}
+					});
+					if (numberServers === 1) {
+						const value = ConfigUtil.getConfigItem('showSidebar');
+						if (!value) {
+							const newValue = !value;
+							focusedWindow.webContents.send('toggle-sidebar', newValue);
+							ConfigUtil.setConfigItem('showSidebar', newValue);
+						}
+					}
+
 					sendAction('open-settings');
 				}
 			}
@@ -476,6 +491,21 @@ function getOtherTpl(props: MenuProps): Electron.MenuItemConstructorOptions[] {
 			accelerator: 'Ctrl+,',
 			click(_item, focusedWindow) {
 				if (focusedWindow) {
+					let numberServers = 0;
+					tabs.forEach(tab => {
+						if (tab.role === 'server') {
+							numberServers++;
+						}
+					});
+					if (numberServers === 1) {
+						const value = ConfigUtil.getConfigItem('showSidebar');
+						if (!value) {
+							const newValue = !value;
+							focusedWindow.webContents.send('toggle-sidebar', newValue);
+							ConfigUtil.setConfigItem('showSidebar', newValue);
+						}
+					}
+
 					sendAction('open-settings');
 				}
 			}
